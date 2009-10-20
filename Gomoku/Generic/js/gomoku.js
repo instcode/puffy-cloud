@@ -75,8 +75,8 @@ Gomoku.DIRECTIONS = new Array(1, Gomoku.EX_ROWSIZE, Gomoku.EX_ROWSIZE + 1, Gomok
 var GomokuUI = function GomokuUI(handler) {
 	var ui = this;
 	var gomoku = new Gomoku();
-	var board = new Entity("board", new Sprite("./images/board.png", GomokuUI.BOARD_DIAMETER, GomokuUI.BOARD_DIAMETER, 1, 1));
-	var pieces = new Sprite("./images/pieces.png", GomokuUI.PIECES_DIAMETER * 2, GomokuUI.PIECES_DIAMETER * 2, 2, 2);
+	var board = new Entity("board", new Sprite(handler.getImage("board.png"), GomokuUI.BOARD_DIAMETER, GomokuUI.BOARD_DIAMETER, 1, 1));
+	var pieces = new Sprite(handler.getImage("pieces.png"), GomokuUI.PIECES_DIAMETER * 2, GomokuUI.PIECES_DIAMETER * 2, 2, 2);
 		
 	var view = document.getElementById("view");	
 	view.appendChild(board.element);
