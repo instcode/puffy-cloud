@@ -61,7 +61,7 @@
 				<div class="L3"></div>
 				<div class="J4"></div>
 				<div class="A4"></div>
-				<div class="G4">Gomoku Master 2009</div>
+				<div class="G4">Gomoku Master 2009 - instcode@googlewave.com</div>
 			</div>
 			<div class="J3 BAB">
 				<div class="L3"></div>
@@ -139,10 +139,13 @@
 	<script type="text/javascript" src="./js/gomoku.js"></script>
 	<script type="text/javascript">
 		var GameHandler = function GameHandler() {
-			this.makeMove = function(event) {
-				if (event.win) {
+			this.getImage = function(imagePath) {
+				return "./images/" + imagePath;
+			}
+			
+			this.moveMade = function(move) {
+				if (gomoku.makeMove(move)) {
 					alert("Game Over!");
-					gomoku.restart();
 				}
 			}
 		}
