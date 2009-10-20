@@ -151,13 +151,6 @@
 				return "http://puffy-cloud.googlecode.com/svn/trunk/Gomoku/Generic/images/" + imagePath;
 			}
 			
-			this.moveMade = function(move) {
-				var playerId = wave.getViewer().getId();
-				if (wave.getState().get(playerId) == gomoku.getTurn()) {
-					wave.getState().submitDelta({'player': playerId, 'move': move});
-				}
-			}
-			
 			this.handle = function(command) {
 				if (command == 'makemove') {
 					handler.makemove(wave.getState().get('player'), wave.getState().get('move'));
@@ -185,6 +178,13 @@
 			this.restart = function(playerId) {
 				gomoku.restart();
 				wave.log("Game is restarted by " + playerId + ".");
+			}
+			
+			this.moveMade = function(move) {
+				var playerId = wave.getViewer().getId();
+				if (wave.getState().get(playerId) == gomoku.getTurn()) {
+					wave.getState().submitDelta({'command': 'makemove', 'player': playerId, 'move': move});
+				}
 			}
 			
 			this.sendRestart = function() {
