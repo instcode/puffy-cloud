@@ -59,6 +59,8 @@ var Gomoku = function Gomoku() {
 	}
 }
 
+Gomoku.CROSS = 0;
+Gomoku.NOUGHT = 1;
 Gomoku.MAN = 0;
 Gomoku.COM = 1;
 Gomoku.EMPTY = 2;
@@ -70,7 +72,7 @@ Gomoku.TOPLEFT = Gomoku.EX_ROWSIZE + 1;
 Gomoku.BOTRIGHT = Gomoku.BOARDSIZE - Gomoku.EX_ROWSIZE - 1;
 Gomoku.DIRECTIONS = new Array(1, Gomoku.EX_ROWSIZE, Gomoku.EX_ROWSIZE + 1, Gomoku.EX_ROWSIZE - 1);
 
-var GomokuUI = function GomokuUI() {
+var GomokuUI = function GomokuUI(handler) {
 	var ui = this;
 	var gomoku = new Gomoku();
 	var board = new Entity("board", new Sprite("./images/board.png", GomokuUI.BOARD_DIAMETER, GomokuUI.BOARD_DIAMETER, 1, 1));
@@ -114,12 +116,7 @@ var GomokuUI = function GomokuUI() {
 		var y = event.pageY - offset.top;
 		
 		var cell = ui.pointToMove(x, y);
-		var won = gomoku.makeMove(cell);
-		ui.drawMove(cell);
-		if (won) {
-			alert("Gameover!");
-			ui.restart();
-		}
+		handler.moveMade(cell);
 	};
 
 	for (var col = Gomoku.TOPLEFT; col < Gomoku.BOTRIGHT; col += Gomoku.EX_ROWSIZE) { 
@@ -131,6 +128,16 @@ var GomokuUI = function GomokuUI() {
 			entity.setPosition(left, top);
 			board.add(cell, entity);
 		}
+	}
+	
+	this.makeMove = function(cell) {
+		var won = gomoku.makeMove(cell);
+		ui.drawMove(cell);
+		return won;
+	}
+	
+	this.getTurn = function() {
+		return gomoku.turn;
 	}
 	
 	this.restart = function() {
