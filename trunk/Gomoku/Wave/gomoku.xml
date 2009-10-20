@@ -167,36 +167,36 @@
 				if (gomoku.makeMove(move)) {
 					alert("Game Over!");
 				}
-				wave.log("Player " + playerId + " made a move at cell " + move + ".");
+				console.log("Player " + playerId + " made a move at cell " + move + ".");
 			}
 			
 			this.join = function(playerId, team) {
 				wave.getState().submitValue(playerId, team);
-				wave.log("Player " + playerId + " joined team " + team + ".");
+				console.log("Player " + playerId + " joined team " + team + ".");
 			}
 			
 			this.restart = function(playerId) {
 				gomoku.restart();
-				wave.log("Game is restarted by " + playerId + ".");
+				console.log("Game is restarted by " + playerId + ".");
 			}
 			
 			this.moveMade = function(move) {
 				var playerId = wave.getViewer().getId();
 				if (wave.getState().get(playerId) == gomoku.getTurn()) {
-					wave.getState().submitDelta({'command': 'makemove', 'player': playerId, 'move': move});
+					wave.getState().submitDelta({'player': playerId, 'move': move, 'command': 'makemove'});
 				}
 			}
 			
 			this.sendRestart = function() {
 				var playerId = wave.getViewer().getId();
-				wave.getState().submitDelta({'command': 'restart', 'player': playerId });
-				wave.log("Player " + playerId + " requested to restart game!");
+				wave.getState().submitDelta({'player': playerId, 'command': 'restart'});
+				console.log("Player " + playerId + " requested to restart game!");
 			}
 			
 			this.sendJoin = function(team) {
 				var playerId = wave.getViewer().getId();
-				wave.getState().submitDelta({'command': 'join', 'team': team, 'player': playerId });
-				wave.log("Player " + playerId + " requested to join team " + team + ".");
+				wave.getState().submitDelta({'player': playerId, 'team': team, 'command': 'join'});
+				console.log("Player " + playerId + " requested to join team " + team + ".");
 			}
 		}
 		
